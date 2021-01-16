@@ -1,24 +1,10 @@
 import React from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Box, Card, } from '@material-ui/core';
+import { Box, Card} from '@material-ui/core';
 import { Icon } from 'leaflet';
 
-const MapContainer = () => {
-    const [zoomlvl, setZoom] = React.useState(15);
-    const [pinged, setPinged] = React.useState(false);
-    const [latlong, setPos] = React.useState({ lat: 8.9806, lng: 38.7578 });
 
-    const handleZoom = (e) => {
-        setZoom(e.target._zoom);
-    }
-
-    const handleMap = (e) => {
-        setPos({
-            lat: e.latlng.lat,
-            lng: e.latlng.lng
-        });
-        setPinged(true);
-    }
+const MapContainer = ({ zoomlvl, pinged, latlong, handleZoom, handleMap }) => {
 
     const customIcon = new Icon({
         iconUrl: '../ping.svg',

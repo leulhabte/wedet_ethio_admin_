@@ -37,7 +37,23 @@ const useStyles = makeStyles((theme)=>({
         [theme.breakpoints.down('md')]:{
             marginLeft: '0rem',   
         }
-    }
+    },
+    send:{
+        position: 'absolute',
+        bottom: theme.spacing(2),
+        right: theme.spacing(12),
+        backgroundColor: appColor2,
+        '&:hover':{
+            backgroundColor: appHover,
+        },
+        color: 'white',
+        width: '3.5rem',
+        height: '3.5rem'
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 }));
 
 

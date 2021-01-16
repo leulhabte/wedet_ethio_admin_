@@ -1,30 +1,20 @@
 import React, { useState } from 'react';
 import { Checkbox, FormControlLabel, FormGroup, Box } from '@material-ui/core';
 
-const Facualities = () => {
-    const [stateZ, setStateZ] = useState({
-        checkboxZ1: true,
-        checkboxZ2: true,
-        checkboxZ3: true,
-        checkboxZ4: true,
-        checkboxZ5: true,
-    });
-    const handleChangeZ = (event) => {
-        setStateZ({ ...stateZ, [event.target.name]: event.target.checked });
-    };
+const Facualities = ({stateZ, handleChangeZ }) => {
     return (
         <Box display="flex" flexDirection="row" width="90%" justifyContent="space-between">
             <FormGroup>
                 <FormControlLabel
                     control={
                         <Checkbox
-                            value="BURGER"
+                            value="FAST_FOOD"
                             checked={stateZ.checkboxZ1}
                             onChange={handleChangeZ}
-                            name="checkboxA1"
+                            name="checkboxZ1"
                         />
                     }
-                    label="Burger"
+                    label="FAST_FOOD"
                 />
             </FormGroup>
 
@@ -32,13 +22,13 @@ const Facualities = () => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            value="PIZZA"
+                            value="BREAKFAST"
                             checked={stateZ.checkboxZ2}
                             onChange={handleChangeZ}
-                            name="checkboxA2"
+                            name="checkboxZ2"
                         />
                     }
-                    label="Pizza"
+                    label="BREAKFAST"
                 />
             </FormGroup>
 
@@ -46,13 +36,13 @@ const Facualities = () => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            value="CAFE"
+                            value="FRENCH"
                             checked={stateZ.checkboxZ3}
                             onChange={handleChangeZ}
-                            name="checkboxA3"
+                            name="checkboxZ3"
                         />
                     }
-                    label="Cafe"
+                    label="FRENCH"
                 />
             </FormGroup>
 
@@ -60,13 +50,13 @@ const Facualities = () => {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            value="SEA_FOOD"
+                            value="DINNER"
                             checked={stateZ.checkboxZ4}
                             onChange={handleChangeZ}
-                            name="checkboxA4"
+                            name="checkboxZ4"
                         />
                     }
-                    label="SeaFood"
+                    label="DINNER"
                 />
             </FormGroup>
 
@@ -77,10 +67,10 @@ const Facualities = () => {
                             value="BUTCHERY"
                             checked={stateZ.checkboxZ5}
                             onChange={handleChangeZ}
-                            name="checkboxA5"
+                            name="checkboxZ5"
                         />
                     }
-                    label="Butchery"
+                    label="BUTCHERY"
                 />
             </FormGroup>
         </Box>

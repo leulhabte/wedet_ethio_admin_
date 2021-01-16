@@ -58,7 +58,7 @@ const EditRestaurant = () => {
     }, [page])
 
     return (
-        <Container style={{background: '#ECF0F3', height: '100vh'}}>
+        <Container style={{background: '#ECF0F3', height: '100%'}}>
             <Box height={40} />
             <Header />
             <Box height={40} />

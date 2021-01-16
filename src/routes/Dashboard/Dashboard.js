@@ -5,7 +5,7 @@ import {Container, Box} from '@material-ui/core';
 
 const Dashboard =()=>{
     return(
-        <div style={{background: '#ECF0F3', height: '100vh'}}>
+        <div style={{background: '#ECF0F3', height: '100%'}}>
             <Box height={40}/>
             <Header/>
             <Box height={40}/>

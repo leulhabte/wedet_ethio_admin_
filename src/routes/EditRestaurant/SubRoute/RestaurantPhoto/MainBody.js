@@ -1,10 +1,10 @@
 import React from 'react';
-import useStyles from '../../Styling';
-import {withRouter} from 'react-router-dom';
-import { OpenInNew } from '@material-ui/icons';
-import { Container, Typography, Box, Grid, Paper, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, withStyles, IconButton, Tooltip } from '@material-ui/core';
+import useStyles from './Styling';
+import { withRouter } from 'react-router-dom';
+import { Comment, Description, OpenInNew } from '@material-ui/icons';
+import { Container, Typography, Box, Grid, Paper, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, withStyles, IconButton, Tooltip, CircularProgress } from '@material-ui/core';
 
-const MainBody = ({history}) => {
+const MainBody = ({ history, data, lastItemElement, load }) => {
     const classes = useStyles();
     const StyledTableRow = withStyles((theme) => ({
         root: {
@@ -19,33 +19,49 @@ const MainBody = ({history}) => {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <Box width="100%" display="flex" p={3}>
-                            <Typography className={classes.tableTitle}>New Registred Restaurnats</Typography>
+                            <Typography className={classes.tableTitle}>Restaurnats</Typography>
                         </Box>
 
                         <Box>
-                            <TableContainer>
-                                <Table>
+                            <TableContainer style={{ maxHeight: '25rem' }}>
+                                <Table stickyHeader>
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell className={classes.tableHead}>No</TableCell>
-                                            <TableCell className={classes.tableHead}>Name</TableCell>
-                                            <TableCell className={classes.tableHead}>Phone</TableCell>
-                                            <TableCell className={classes.tableHead}>Date</TableCell>
-                                            <TableCell className={classes.tableHead} align="center">Action</TableCell>
+                                            <TableCell classes={{ root: classes.tableHead_2 }}>Business Name</TableCell>
+                                            <TableCell classes={{ root: classes.tableHead_2 }}>Address</TableCell>
+                                            <TableCell classes={{ root: classes.tableHead_2 }}>Business Type</TableCell>
+                                            <TableCell classes={{ root: classes.tableHead_2 }}>Working Time</TableCell>
+                                            <TableCell classes={{ root: classes.tableHead_2 }} align="center">Action</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        <StyledTableRow>
-                                            <TableCell>1</TableCell>
-                                            <TableCell>Arizona Restaurant</TableCell>
-                                            <TableCell>+251985473456</TableCell>
-                                            <TableCell>1/13/2021</TableCell>
-                                            <TableCell>
-                                                <Box display='flex' flexDirection='row' justifyContent="center">
-                                                    <IconButton onClick={()=>{history.push('/photos')}}><Tooltip title="Open"><OpenInNew classes={{ root: classes.edit }} /></Tooltip></IconButton>
-                                                </Box>
-                                            </TableCell>
-                                        </StyledTableRow>
+                                        {data.map((value, index) => {
+                                            if (data.length === index + 1) {
+                                                return <StyledTableRow ref={lastItemElement} key={value.id} hover={true}>
+                                                    <TableCell>{value.name}</TableCell>
+                                                    <TableCell>{value.address}</TableCell>
+                                                    <TableCell>{value.division}</TableCell>
+                                                    <TableCell>{value.workingTime}</TableCell>
+                                                    <TableCell align="center">
+                                                    <IconButton onClick={() => { const user_id = value.id; const photo = value.photoUrl.filePath; history.push({ pathname: '/photos', state: { data: user_id, photo, index: 0 } }) }}><Tooltip title="Photos"><OpenInNew classes={{ root: classes.edit }} /></Tooltip></IconButton>
+                                                    </TableCell>
+                                                </StyledTableRow>
+                                            }
+                                            return <StyledTableRow key={value.id} hover={true}>
+                                                <TableCell>{value.name}</TableCell>
+                                                <TableCell>{value.address}</TableCell>
+                                                <TableCell>{value.division}</TableCell>
+                                                <TableCell>{value.workingTime}</TableCell>
+                                                <TableCell align="center">
+                                                        <IconButton onClick={() => { const user_id = value.id; const photo = value.photoUrl.filePath; history.push({ pathname: '/photos', state: { data: user_id, photo, index: 0 } }) }}><Tooltip title="Photos"><OpenInNew classes={{ root: classes.edit }} /></Tooltip></IconButton>
+                                                </TableCell>
+                                            </StyledTableRow>
+                                        })}
+                                        <TableRow>
+                                            <TableCell/>
+                                            <TableCell/>
+                                            <TableCell align="center">{load && <CircularProgress color='orange' />}</TableCell>
+                                            </TableRow>
                                     </TableBody>
                                 </Table>
                             </TableContainer>

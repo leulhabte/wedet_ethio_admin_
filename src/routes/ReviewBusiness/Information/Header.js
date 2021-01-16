@@ -1,13 +1,17 @@
-import React from 'react';
-import {Container} from '@material-ui/core';
+import React, {Suspense} from 'react';
+import { Container, Box } from '@material-ui/core';
 import useStyles from './Styling';
+// import fp from 'C:/Users/Leul Hbt/Desktop/fat jar/files';
+import s from 'C:/Users/Public/1.jpg';
 
-const Header =()=>{
+const Header = ({ photo }) => {
     const classes = useStyles();
-    return(
+    console.log(photo);
+    return (
         <Container className={classes.parent}>
-            <Container className={classes.child}>
-            </Container>
+            <Box>
+                <img src={`http://10.2.81.162:80/${photo}`} className={classes.img} />
+            </Box>
         </Container>
     )
 }

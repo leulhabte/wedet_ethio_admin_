@@ -37,7 +37,7 @@ const Information = ({history}) => {
         <div style={{ height: '100%' }}>
             {loading ? (<Loading />) : (
                 <div>
-                    <Header />
+                    <Header photo={data.photoUrl.filePath}/>
                     <Content data={data}/>
                 </div>)}
         </div>

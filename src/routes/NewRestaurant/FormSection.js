@@ -14,13 +14,13 @@ const FormSection = ({  setAddress, setPhoneNum, phone, setMon, setTues, setWen,
                 <Box display="flex" flexDirection="row" width="100%">
                     <Box width="35%">
                         <Paper >
-                            <InputBase className={classes.inputBase} value={latlong.lat} contentEditable="false"/>
+                            <InputBase className={classes.inputBase} value={latlong.lat}/>
                         </Paper>
                     </Box>
                     <Box width={20} />
                     <Box width="35%">
                         <Paper>
-                            <InputBase className={classes.inputBase} value={latlong.lng} contentEditable="false"/>
+                            <InputBase className={classes.inputBase} value={latlong.lng} />
                         </Paper>
                     </Box>
                 </Box>

@@ -20,6 +20,7 @@ import ReviewBusiness from './routes/ReviewBusiness/ReviewBusiness';
 import Informations from './routes/ReviewBusiness/Information/Information';
 import AddMenu from './routes/EditRestaurant/SubRoute/AddMenu/AddMenu';
 import Comment from './routes/ReviewBusiness/Comment/Comment';
+import Routing from './routes/EditRestaurant/SubRoute/RestaurantPhoto/Photos/route';
 
 function App() {
   const classes = useStyles();
@@ -48,10 +49,11 @@ function App() {
   }, []);
 
   return (
+    <div style={{background: '#ECF0F3'}}>
     <BrowserRouter>
       <div className={classes.root}>
         <AppBars />
-        <div className={classes.content}>
+        <div className={classes.content}  style={{background: '#ECF0F3'}}>
           <div className={classes.toolBar} />
           <Switch>
             <ProtectedLogin path="/" exact component={Login} handleUserLogin={handleUserLogin} auth={auth} />
@@ -68,10 +70,13 @@ function App() {
             <ProtectedRoute path="/editRes" exact component={EditRestaturant} auth={auth} />
             <ProtectedRoute path="/editRes" exact component={EditRestaturant} auth={auth} />
             <ProtectedRoute path="/addMenu" exact component={AddMenu} auth={auth} />
+            <ProtectedRoute path="/route" exact component={Routing} auth={auth} />
+            
           </Switch>
         </div>
       </div>
     </BrowserRouter>
+    </div>
   );
 }
 
@@ -79,7 +84,9 @@ const ProtectedLogin = ({ handleUserLogin, auth, component: Component, ...rest }
   return <Route
     {...rest}
     render={(props) => !auth ? (<Component handleUserLogin={handleUserLogin} {...props} />) :
-      (<Redirect to="/dash" />)
+      (<Redirect to={{
+        pathname: `/dash`
+      }} />)
     }
   />
 }

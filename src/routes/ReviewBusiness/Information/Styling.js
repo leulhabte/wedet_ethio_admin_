@@ -42,7 +42,17 @@ const useStyles = makeStyles((theme)=>({
         fontWeight: 'bold',
         color: 'black',
         color: 'rgb(210, 117, 55)'
-    }
+    },
+    img: {
+        position: 'absolute',
+        backgroundSize: 'cover',
+        top: '0',
+        left: '0',
+        backgroundColor: 'purple',
+        width: '100%',
+        height: '100%',
+        borderRadius: '20px'
+    },
 }));
 
 

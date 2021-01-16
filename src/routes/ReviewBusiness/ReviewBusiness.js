@@ -43,7 +43,7 @@ const ReviewBusiness = () => {
         setLoad(true);
         setError(false);
         try {
-            const res = await axios.get(`restaurant?sort=DESC&sort_by=date&priceMin=50&priceMax=250&p=${page}&per_p=3`,
+            const res = await axios.get(`restaurant?sort=DESC&sort_by=date&p=${page}&per_p=3`,
                 {
                     headers: {
                         'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWhpcmV0YWIzMzNAZ21haWwuY29tIiwiaWQiOiI1ZWU4MTUxMGJhNGQ5NTdkNWZhNTRkY2QiLCJleHAiOjE5MjU0Njk0MjAsImlhdCI6MTYxMDEwOTQyMH0.zZ7s3jKH-LiTdetiyoDl-JYY5TJjYSu16gPukBmLumsJ2rLthbXD9Hfsh4WVY5vIBy4gUIVe_o4CF3Azl41D2A'

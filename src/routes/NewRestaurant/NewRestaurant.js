@@ -5,6 +5,8 @@ import { Container, Backdrop, CircularProgress } from '@material-ui/core';
 import axios from 'axios';
 import SnackBar from '../../partial/SnackBars';
 import useStyles from './Styling';
+import img from '../../res/g1.jpg';
+import Cookies from 'js-cookie';
 
 const NewRestaurant = () => {
     const classes = useStyles();
@@ -30,15 +32,21 @@ const NewRestaurant = () => {
     const [open, setOpen] = React.useState(false);
     const [open2, setOpen2] = React.useState(false);
 
-    const handleToggle = () => {
-        setOpen(!open);
-    };
+    // Image State
+    const imgPicker = React.useRef(null);
+    const [image, setImage] = React.useState(img);
+    const [fileImage, setFileImage] = useState({});
+    const reader = new FileReader()
+;    const _handleImg = (e) => {
+        e.preventDefault();
+        setImage(URL.createObjectURL(e.target.files[0]));
+        setFileImage(e.target.files[0])
+    }
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
-
         setOpen(false);
     };
 
@@ -165,7 +173,6 @@ const NewRestaurant = () => {
                 a.push(t)
             }
             var category = `[${a.toString()}]`;
-            console.log(category);
             // ----------------------------
 
 
@@ -194,8 +201,11 @@ const NewRestaurant = () => {
                 \"categories\": ${category}
               }
             `);
+            formData.append('logoPhoto',fileImage);
+            
             const res = await axios.post('/admin/register/business', formData,
-                { headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWhfbGV1bEBnbWFpbC5jb20iLCJpZCI6IjVmMTYxODRjMTBlMDAyNTNmYzZlZGYxNCIsImV4cCI6MTkyNTgyNjgxNiwiaWF0IjoxNjEwNDY2ODE2fQ.hbHwveDeXYq_J40Y6fX49lvMCz2VOZ2WhpJeUvAvSMCyxDjdmvaA9dnnnoU9eBry89Ipt5zeWJ8UMBOgzkugxA' } });
+                { headers: { 'Authorization': `Bearer ${Cookies.get('jwt')}` } });
+
             if (res.status === 200) {
                 setName("")
                 setDescription("")
@@ -235,6 +245,8 @@ const NewRestaurant = () => {
                     setMon={setMon} setTues={setTues} setWen={setWen} setThu={setThu} setFri={setFri} setSat={setSat} setSun={setSun}
                     mon={mon} tues={tues} wen={wen} thu={thu} fri={fri} sat={sat} sun={sun}
                     zoomlvl={zoomlvl} pinged={pinged} latlong={latlong} handleZoom={handleZoom} handleMap={handleMap}
+                    imgPicker={imgPicker} image={image} setImage={setImage} _handleImg={_handleImg}
+
                 />
             </form>
             <SnackBar handleClose={handleClose} open={open} message={message} type={messageType} />

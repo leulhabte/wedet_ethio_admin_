@@ -4,6 +4,7 @@ import Checkboxes from './CheckBox';
 import Facualities from './Facialities';
 import FormSection from './FormSection';
 import MapContainer from './MapContainer';
+import PhotoPicker from './Photo';
 import { Box, Paper, InputBase, FormControlLabel, Typography, Checkbox, Button, Grid, FormGroup } from '@material-ui/core';
 
 const NewForm = ({ stateA, stateB, stateC, stateD, stateE, stateF, stateG, stateZ, handleChangeA, handleChangeB, handleChangeC, handleChangeD,
@@ -11,7 +12,8 @@ const NewForm = ({ stateA, stateB, stateC, stateD, stateE, stateF, stateG, state
     setName, setDescription, setAddress, setPhoneNum, setAboutUs,
     setMon, setTues, setWen, setThu, setFri, setSat, setSun,
     mon, tues, wen, thu, fri, sat, sun,
-    zoomlvl, pinged, latlong, handleZoom, handleMap
+    zoomlvl, pinged, latlong, handleZoom, handleMap,
+    imgPicker, image, setImage, _handleImg
 }) => {
     const classes = useStyles();
 
@@ -75,6 +77,8 @@ const NewForm = ({ stateA, stateB, stateC, stateD, stateE, stateF, stateG, state
                         <Grid item md={6} xs={10}>
                             <Box display="flex" flexDirection="column">
                                 <MapContainer zoomlvl={zoomlvl} pinged={pinged} latlong={latlong} handleZoom = {handleZoom} handleMap={handleMap}/>
+                                <Box height={30} />
+                                <PhotoPicker imgPicker={imgPicker} image={image} setImage={setImage} _handleImg={_handleImg}/>
                                 <Box height={30} />
                                 <Button className={classes.btn} type="submit">Submit</Button>
                             </Box>

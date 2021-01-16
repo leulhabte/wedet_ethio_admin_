@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Container, GridList, GridListTile, makeStyles, GridListTileBar, Box, IconButton,  Backdrop, CircularProgress } from '@material-ui/core';
-import images from '../../../../../images';
 import { Delete } from '@material-ui/icons';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const InteriorPhoto = ({ data, history, photo, index }) => {
+const ServicePhoto = ({ data, history, photo, index }) => {
     // Define States
     const [page, setPage] = useState(1);
 
@@ -112,7 +111,7 @@ const InteriorPhoto = ({ data, history, photo, index }) => {
         setLoad(true);
         setError(false);
         try {
-            const res = await axios.get(`restaurant/photos/${data}/?label=INSIDE&p=${page}&per_p=5`,
+            const res = await axios.get(`restaurant/photos/${data}/?label=SERVICE&p=${page}&per_p=5`,
                 {
                     headers: {
                         'Authorization': `Bearer ${Cookies.get('jwt')}`
@@ -171,4 +170,4 @@ const InteriorPhoto = ({ data, history, photo, index }) => {
     );
 }
 
-export default withRouter(InteriorPhoto);
+export default withRouter(ServicePhoto);

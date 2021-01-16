@@ -2,6 +2,6 @@
   width: 100%;
   height: 100%;
 }
-/* #root {
-  background-color: #ECF0F3;
-} */
+#root {
+  background: #ECF0F3;
+}
