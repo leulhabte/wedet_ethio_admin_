@@ -37,10 +37,13 @@ const useStyles = makeStyles((theme)=>({
         height: '2rem'
     },
     namePaper:{
-        width: '30%'
+        width: '30%',
+        paddingX: '1rem'
     },
     inputBase:{
-        width: '100%'
+        width: '100%',
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
     },
     title:{
         fontWeight: 'bold',

@@ -43,7 +43,7 @@ const ReviewBusiness = () => {
         setLoad(true);
         setError(false);
         try {
-            const res = await axios.get(`restaurant?sort=DESC&sort_by=date&p=${page}&per_p=3`,
+            const res = await axios.get(`restaurant?sort=DESC&sort_by=_id&date&p=${page}&per_p=3`,
                 {
                     headers: {
                         'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWhpcmV0YWIzMzNAZ21haWwuY29tIiwiaWQiOiI1ZWU4MTUxMGJhNGQ5NTdkNWZhNTRkY2QiLCJleHAiOjE5MjU0Njk0MjAsImlhdCI6MTYxMDEwOTQyMH0.zZ7s3jKH-LiTdetiyoDl-JYY5TJjYSu16gPukBmLumsJ2rLthbXD9Hfsh4WVY5vIBy4gUIVe_o4CF3Azl41D2A'
@@ -55,14 +55,35 @@ const ReviewBusiness = () => {
             setLoad(false);
         }catch(e){
             setError(true);
-            alert('something went wrong');
+            alert(e.message);
         }
-
     }
+
+    // 
+    const [query, setQuery] = useState("");
+    const fectData = (query)=>{
+        let cancel;
+        axios({
+            url: `restaurant/search?text=${query}`,
+            method: "GET",
+            cancelToken: new axios.CancelToken(c => cancel = c)
+        }).then(res => {
+            setHasMore(false)
+            setUser([])
+            setUser(res.data.data)
+        }).catch(e=>{
+            if (axios.isCancel(e)) return;
+        })
+    }
+    // 
+    useEffect(()=>{
+        if(query === "") {setPage(1); fetchBusiness(page);}
+    },[query])
+
     return (
         <Container style={{ background: '#ECF0F3', height: '100vh' }}>
             <Box height={40} />
-            <Header />
+            <Header query={query} setQuery = {setQuery} fectData={fectData}/>
             <Box height={40} />
             <MainBody data={user} lastItemElement={lastItemElement} load={load}/>
         </Container>
