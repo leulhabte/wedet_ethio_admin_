@@ -143,7 +143,7 @@ const InteriorPhoto = ({ data, history, photo, index }) => {
                     user.map((tile, index) => {
                         if (user.length === index + 1) {
                             return <GridListTile key={tile.businessId} cols={1} ref={lastItemElement}>
-                                <img src={"http://10.2.81.162" + tile.filePath} style={{ width: '100%', height: '100%' }} />
+                                <img src={"http://192.168.43.180:80/"+tile.filePath} style={{ width: '100%', height: '100%' }} />
                                 <GridListTileBar
                                     title={tile.caption}
                                     subtitle={tile.label}
@@ -152,7 +152,7 @@ const InteriorPhoto = ({ data, history, photo, index }) => {
                             </GridListTile>
                         }
                         return <GridListTile key={tile.businessId} cols={1}>
-                            <img src={"http://10.2.81.162" + tile.filePath} style={{ width: '100%', height: '100%' }} />
+                            <img src={"http://192.168.43.180:80/"+tile.filePath} style={{ width: '100%', height: '100%' }} />
                             <GridListTileBar
                                 title={tile.caption}
                                 subtitle={tile.label}

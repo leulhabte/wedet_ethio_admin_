@@ -27,7 +27,7 @@ const Header = ({history}) => {
                 </Grid>
 
                 <Grid item lg={3} xs={9} md={6}>
-                    <Button className={classes.dashButtonC2}>
+                    <Button className={classes.dashButtonC2} onClick={()=>{history.push('/resEdit')}}>
                         <Box display="flex" flexDirection="column" height="100%" width="100%" justifyContent="space-between" alignItems="center">
                             <Typography className={classes.headTxt}>Edit Menu</Typography>
                             <Box height={20}/>
@@ -36,7 +36,7 @@ const Header = ({history}) => {
                 </Grid>
 
                 <Grid item lg={3} xs={9} md={6}>
-                    <Button className={classes.dashButtonC3}  onClick={()=>{history.push('/addMenu')}}>
+                    <Button className={classes.dashButtonC3}  onClick={()=>{history.push('/resMenu')}}>
                         <Box display="flex" flexDirection="column" height="100%" width="100%" justifyContent="space-between" alignItems="center">
                             <Typography className={classes.headTxt}>Add Menu</Typography>
                             <Box height={20}/>

@@ -47,6 +47,15 @@ const useStyles = makeStyles((theme)=>({
         fontSize: '16',
         marginBottom: '0.6rem'
     },
+    btn2:{
+        backgroundColor: '#FF6F00',
+        color: 'white',
+        '&:hover':{
+            backgroundColor: '#AA4A00'
+        },
+        width: '20%',
+        height: '2rem'
+    },
 }));
 
 

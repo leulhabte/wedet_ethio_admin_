@@ -18,9 +18,15 @@ import RestaurantPhoto from './routes/EditRestaurant/SubRoute/RestaurantPhoto/Re
 import Photos from './routes/EditRestaurant/SubRoute/RestaurantPhoto/Photos/Photos';
 import ReviewBusiness from './routes/ReviewBusiness/ReviewBusiness';
 import Informations from './routes/ReviewBusiness/Information/Information';
-import AddMenu from './routes/EditRestaurant/SubRoute/AddMenu/AddMenu';
+import AddMenu from './routes/EditRestaurant/SubRoute/AddMenu/MenuForm/AddMenu';
+import RestaurantAddMenu from './routes/EditRestaurant/SubRoute/AddMenu/Restaurants';
 import Comment from './routes/ReviewBusiness/Comment/Comment';
 import Routing from './routes/EditRestaurant/SubRoute/RestaurantPhoto/Photos/route';
+import RestaurantEditMenu from './routes/EditRestaurant/SubRoute/Edit Menu/Restaurants';
+import EditMenu from './routes/EditRestaurant/SubRoute/Edit Menu/MenuForm/EditMenu';
+import EditPhoto from './routes/EditRestaurant/SubRoute/Edit Menu/EditPhoto/EditMenuPhotos';
+import Menus from './routes/EditRestaurant/SubRoute/Edit Menu/Menus/Menus';
+import GRoute from './partial/route';
 
 function App() {
   const classes = useStyles();
@@ -70,7 +76,13 @@ function App() {
             <ProtectedRoute path="/editRes" exact component={EditRestaturant} auth={auth} />
             <ProtectedRoute path="/editRes" exact component={EditRestaturant} auth={auth} />
             <ProtectedRoute path="/addMenu" exact component={AddMenu} auth={auth} />
+            <ProtectedRoute path="/resMenu" exact component={RestaurantAddMenu} auth={auth} />
+            <ProtectedRoute path="/resEdit" exact component={RestaurantEditMenu} auth={auth} />
+            <ProtectedRoute path="/editMenu" exact component={EditMenu} auth={auth} />
+            <ProtectedRoute path="/menus" exact component={Menus} auth={auth} />
+            <ProtectedRoute path="/editPhoto" exact component={EditPhoto} auth={auth} />
             <ProtectedRoute path="/route" exact component={Routing} auth={auth} />
+            <ProtectedRoute path="/gRoute" exact component={GRoute} auth={auth} />
             
           </Switch>
         </div>

@@ -14,7 +14,7 @@ const PhotoPicker =({imgPicker, image, setImage, _handleImg})=>{
             <Box display="flex" justifyContent="space-between" alignItems="center" className={classes.imgBar}>
             </Box>
             <Box display="flex" justifyContent="space-between" alignItems="center" className={classes.imgBarComp}>
-                <Typography className={classes.imgText}>Upload Profile Picture</Typography>
+                <Typography className={classes.imgText}>Update Menu Photo</Typography>
                 <IconButton onClick={() => { imgPicker.current.click() }}><CloudUpload className={classes.imgBtn} /></IconButton>
                 <input style={{ display: 'none' }} type="file" ref={imgPicker} onChange={_handleImg} />
             </Box>
