@@ -1,6 +1,6 @@
 import {makeStyles} from '@material-ui/core';
 
-const appbarColor = 'rgb(255, 111, 0)';
+const appbarColor = 'rgb(257, 103, 37)';
 const shadowColor = 'rgb(221, 221, 221)';
 const appHover = 'rgb(255, 86,0)';
 const appFade = 'rgb(204, 204, 204)';
@@ -9,15 +9,14 @@ const appColor2 = 'rgb(255, 140, 0)';
 
 const useStyles = makeStyles((theme)=>({
     root:{
-        display: 'flex',
-        background: '#ECF0F3'
+        display: 'flex'
     },
     toolBar: theme.mixins.toolbar,
     content:{
         flexGrow: 1,
         padding: theme.spacing(0),
         margin: theme.spacing(0),
-        background: '#ECF0F3'   
+        // background: '#ECF0F3'   
     },
     linkNav:{
         color: 'white',
@@ -30,7 +29,7 @@ const useStyles = makeStyles((theme)=>({
     },
     appTitle:{
         fontWeight: 'bold',
-        fontSize: '24px'
+        fontSize: '20px'
     },
     appBar:{
         backgroundColor: appbarColor

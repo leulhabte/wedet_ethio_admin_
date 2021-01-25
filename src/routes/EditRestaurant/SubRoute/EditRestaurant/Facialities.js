@@ -1,78 +1,126 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Checkbox, FormControlLabel, FormGroup, Box } from '@material-ui/core';
 
-const Facualities = ({stateZ, handleChangeZ }) => {
+const Facualities = ({ stateE, stateF, handleChangeE, handleChangeF }) => {
     return (
         <Box display="flex" flexDirection="row" width="90%" justifyContent="space-between">
-            <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            value="FAST_FOOD"
-                            checked={stateZ.checkboxZ1}
-                            onChange={handleChangeZ}
-                            name="checkboxZ1"
-                        />
-                    }
-                    label="FAST_FOOD"
-                />
-            </FormGroup>
+            <Box>
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                value="WI_FI"
+                                checked={stateE.checkboxE1}
+                                onChange={handleChangeE}
+                                name="checkboxE1"
+                            />
+                        }
+                        label="WI_FI"
+                    />
+                </FormGroup>
 
-            <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            value="BREAKFAST"
-                            checked={stateZ.checkboxZ2}
-                            onChange={handleChangeZ}
-                            name="checkboxZ2"
-                        />
-                    }
-                    label="BREAKFAST"
-                />
-            </FormGroup>
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                value="TAKES_RESERVATION"
+                                checked={stateE.checkboxE2}
+                                onChange={handleChangeE}
+                                name="checkboxE2"
+                            />
+                        }
+                        label="TAKES_RESERVATION"
+                    />
+                </FormGroup>
 
-            <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            value="FRENCH"
-                            checked={stateZ.checkboxZ3}
-                            onChange={handleChangeZ}
-                            name="checkboxZ3"
-                        />
-                    }
-                    label="FRENCH"
-                />
-            </FormGroup>
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                value="PARKING"
+                                checked={stateE.checkboxE3}
+                                onChange={handleChangeE}
+                                name="checkboxE3"
+                            />
+                        }
+                        label="PARKING"
+                    />
+                </FormGroup>
 
-            <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            value="DINNER"
-                            checked={stateZ.checkboxZ4}
-                            onChange={handleChangeZ}
-                            name="checkboxZ4"
-                        />
-                    }
-                    label="DINNER"
-                />
-            </FormGroup>
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                value="DELIVERY"
+                                checked={stateE.checkboxE4}
+                                onChange={handleChangeE}
+                                name="checkboxE4"
+                            />
+                        }
+                        label="DELIVERY"
+                    />
+                </FormGroup>
+            </Box>
 
-            <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            value="BUTCHERY"
-                            checked={stateZ.checkboxZ5}
-                            onChange={handleChangeZ}
-                            name="checkboxZ5"
-                        />
-                    }
-                    label="BUTCHERY"
-                />
-            </FormGroup>
+            {/* ------------------------------ */}
+
+            <Box>
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                value="GOOD_FOR_KIDS"
+                                checked={stateF.checkboxF1}
+                                onChange={handleChangeF}
+                                name="checkboxF1"
+                            />
+                        }
+                        label="GOOD_FOR_KIDS"
+                    />
+                </FormGroup>
+
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                value="TAKE_OUT"
+                                checked={stateF.checkboxF2}
+                                onChange={handleChangeF}
+                                name="checkboxF2"
+                            />
+                        }
+                        label="TAKE_OUT"
+                    />
+                </FormGroup>
+
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                value="OUTDOOR_SEATING"
+                                checked={stateF.checkboxF3}
+                                onChange={handleChangeF}
+                                name="checkboxF3"
+                            />
+                        }
+                        label="OUTDOOR_SEATING"
+                    />
+                </FormGroup>
+
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                value="ACCEPTS_CREDIT_CARD"
+                                checked={stateF.checkboxF4}
+                                onChange={handleChangeF}
+                                name="checkboxF4"
+                            />
+                        }
+                        label="ACCEPTS_CREDIT_CARD"
+                    />
+                </FormGroup>
+            </Box>
         </Box>
     )
 

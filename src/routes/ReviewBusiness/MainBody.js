@@ -2,9 +2,9 @@ import React from 'react';
 import useStyles from './Styling';
 import { withRouter } from 'react-router-dom';
 import { Comment, Description } from '@material-ui/icons';
-import { Container, Typography, Box, Grid, Paper, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, withStyles, IconButton, Tooltip, CircularProgress } from '@material-ui/core';
+import { Container, Typography, Box, Grid, Paper, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, withStyles, IconButton, Tooltip, CircularProgress, List, ListItem, Button, ListItemText } from '@material-ui/core';
 
-const MainBody = ({ history, data, lastItemElement, load }) => {
+const MainBody = ({ history, data, load, handleNext, handlePrev, page, totalPage, totalData }) => {
     const classes = useStyles();
     const StyledTableRow = withStyles((theme) => ({
         root: {
@@ -36,20 +36,6 @@ const MainBody = ({ history, data, lastItemElement, load }) => {
                                     </TableHead>
                                     <TableBody>
                                         {data.map((value, index) => {
-                                            if (data.length === index + 1) {
-                                                return <StyledTableRow ref={lastItemElement} key={value.id} hover={true}>
-                                                    <TableCell>{value.name}</TableCell>
-                                                    <TableCell>{value.address}</TableCell>
-                                                    <TableCell>{value.division}</TableCell>
-                                                    <TableCell>{value.workingTime}</TableCell>
-                                                    <TableCell align="center">
-                                                        <Box display='flex' flexDirection='row' justifyContent="center">
-                                                            <IconButton onClick={() => { const user_id = value.id; history.push({ pathname: '/comm', state: { data: user_id } }) }}><Tooltip title="Review"><Comment classes={{ root: classes.edit }} /></Tooltip></IconButton>
-                                                            <IconButton onClick={() => { const user_id = value.id; history.push({ pathname: '/info', state: { data: user_id } }) }} ><Tooltip title="Description"><Description classes={{ root: classes.remove }} /></Tooltip></IconButton>
-                                                        </Box>
-                                                    </TableCell>
-                                                </StyledTableRow>
-                                            }
                                             return <StyledTableRow key={value.id} hover={true}>
                                                 <TableCell>{value.name}</TableCell>
                                                 <TableCell>{value.address}</TableCell>
@@ -57,20 +43,30 @@ const MainBody = ({ history, data, lastItemElement, load }) => {
                                                 <TableCell>{value.workingTime}</TableCell>
                                                 <TableCell align="center">
                                                     <Box display='flex' flexDirection='row' justifyContent="center">
-                                                        <IconButton onClick={() => { const user_id = value.id; history.push({ pathname: '/comm', state: { data: user_id } }) }}><Tooltip title="Review"><Comment classes={{ root: classes.edit }} /></Tooltip></IconButton>
-                                                        <IconButton onClick={() => { const user_id = value.id; history.push({ pathname: '/info', state: { data: user_id } }) }} ><Tooltip title="Description"><Description classes={{ root: classes.remove }} /></Tooltip></IconButton>
+                                                        <IconButton onClick={() => { const user_id = value.id; history.push({ pathname: '/comm', state: { data: user_id } }) }}><Tooltip title="Review"><Comment classes={{ root: classes.edit }}   style={{color: 'orange'}}/></Tooltip></IconButton>
+                                                        <IconButton onClick={() => { const user_id = value.id; history.push({ pathname: '/info', state: { data: user_id } }) }} ><Tooltip title="Description"><Description classes={{ root: classes.remove }}   style={{color: 'green'}}/></Tooltip></IconButton>
                                                     </Box>
                                                 </TableCell>
                                             </StyledTableRow>
                                         })}
                                         <TableRow>
-                                            <TableCell/>
-                                            <TableCell/>
-                                            <TableCell align="center">{load && <CircularProgress color='orange' />}</TableCell>
-                                            </TableRow>
+                                            <TableCell />
+                                            <TableCell />
+                                            <TableCell align="center">{load && <CircularProgress color='inherit' />}</TableCell>
+                                        </TableRow>
                                     </TableBody>
                                 </Table>
                             </TableContainer>
+                            <Box height={10} />
+                            <Box display="flex" flexDirection="row-reverse">
+                                <Button onClick={handleNext} classes={{ root: classes.pageButton }}>Next</Button>
+                                <Button onClick={handlePrev} classes={{ root: classes.pageButton }}>Prev</Button>
+                                <List>
+                                    <ListItem>
+                                        <ListItemText>Page {page} of {totalPage} totall Data {totalData}</ListItemText>
+                                    </ListItem>
+                                </List>
+                            </Box>
                         </Box>
                     </Paper>
                 </Grid>

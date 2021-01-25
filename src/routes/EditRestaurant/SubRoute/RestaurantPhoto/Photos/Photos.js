@@ -10,15 +10,15 @@ import useStyles from './Styling';
 import SnackBar from '../../../../../partial/SnackBars'
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import {useHistory, Redirect} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 const Photos =({history})=>{
     React.useEffect(()=>{
       console.log(history.location.state.index)
     },[])
     const _img = useRef();
+    const _img2 = useRef();
     const classes = useStyles();
-    const h = useHistory();
     const fabs = [
         {
           color: 'secondary',
@@ -47,6 +47,7 @@ const Photos =({history})=>{
       ];
     const [value, setValue] = React.useState(history.location.state.index);
     const [fileImage, setFileImage] = useState({});
+    const [fileImage2, setFileImage2] = useState({});
     const [message, setMessage] = useState("");
     const [messageType, setMessageType] = useState("");
     const [open, setOpen] = React.useState(false);
@@ -68,7 +69,6 @@ const Photos =({history})=>{
   };
 
     const sendPhoto = async(label)=>{
-      // e.preventDefault();
       setOpen2(true);
       var index = label === "INSIDE"? 1 : label === "OUTSIDE" ? 2 : 3;
       try{
@@ -86,7 +86,7 @@ const Photos =({history})=>{
           method: "POST",
           timeout: 0,
           headers: {
-            "Authorization": `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWhfbGV1bEBnbWFpbC5jb20iLCJpZCI6IjYwMDFhODI2YzcwYWZhMjYwOTk2MTNiOSIsImV4cCI6MTkyNjA5OTI0NiwiaWF0IjoxNjEwNzM5MjQ2fQ.C_EQYyTxgHdy2s5BfjwP8S3OglD08WbttBzzQYPIh0sPRdn3fUVdN8FnLl9mvoHE69ee9EkF4drV1PV4O6Bg6A`
+            "Authorization": `Bearer ${Cookies.get('jwt')}`
           },
           processData: false,
           mimeType: "multipart/form-data",
@@ -99,7 +99,7 @@ const Photos =({history})=>{
           setMessageType('success');
           setOpen2(false);
           setOpen(true);
-          history.push({pathname: '/route', state: {photo: history.location.state.photo, data: history.location.state.data, index: index}});
+          history.push({pathname: '/route', state: {photo: history.location.state.photo, data: history.location.state.data, index: index, ip: history.location.state.ip }});
       }
       }catch(e){
         setOpen2(false);
@@ -107,6 +107,42 @@ const Photos =({history})=>{
         setMessageType('error')
         setOpen(true);
       }
+    }
+
+    const updateLogo = async()=>{
+        try{
+          setOpen2(true)
+          var form = new FormData();
+          form.append("businessId", `${history.location.state.data}`);
+          form.append("logoPhoto", fileImage2);
+          
+          var settings = {
+            "url": "admin/update/logo",
+            "method": "PUT",
+            "timeout": 0,
+            "headers": {
+              "Authorization": `Bearer ${Cookies.get('jwt')}`
+            },
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+            "data": form
+          };
+
+          const res = await axios(settings);
+          if(res.status === 200){
+            setMessage("Image inserted successfully")
+            setMessageType('success');
+            setOpen2(false);
+            setOpen(true);
+            history.push({pathname: '/resPhoto'});
+          }
+        }catch(e){
+          setOpen2(false);
+          setMessage(e.message)
+          setMessageType('error')
+          setOpen(true);
+        }
     }
 
     return(
@@ -121,16 +157,16 @@ const Photos =({history})=>{
                 </Tabs>
             </AppBar>
         <TabPanels value={value} index={0}>
-          <UpdatePhoto photo={history.location.state.photo}/>
+          <UpdatePhoto photo={history.location.state.photo} ip={history.location.state.ip}/>
         </TabPanels>
         <TabPanels value={value} index={1}>
-          <InteriorPhoto data = {history.location.state.data} photo={history.location.state.photo} index={1}/>
+          <InteriorPhoto data = {history.location.state.data} photo={history.location.state.photo} index={1} ip={history.location.state.ip}/>
         </TabPanels>
         <TabPanels value={value} index={2}>
-          <OutsidePhoto data = {history.location.state.data} photo={history.location.state.photo} index={1}/>
+          <OutsidePhoto data = {history.location.state.data} photo={history.location.state.photo} index={1} ip={history.location.state.ip}/>
         </TabPanels>
         <TabPanels value={value} index={3}>
-          <ServicePhoto data = {history.location.state.data} photo={history.location.state.photo} index={1}/>
+          <ServicePhoto data = {history.location.state.data} photo={history.location.state.photo} index={1} ip={history.location.state.ip}/>
         </TabPanels>
         {fabs.map((fab, index) => (
         <Zoom
@@ -139,9 +175,9 @@ const Photos =({history})=>{
           unmountOnExit
         >
           {
-            fab.label === 'Add' ? <Fab aria-label={fab.label} className={fab.className} color={fab.color} onClick={(e)=>{console.log("ADD")}}>
+            fab.label === 'Add' ? <Box display="flex" flexDirection="row"><IconButton className={classes.send} onClick={()=>{updateLogo()}}><Send/></IconButton><Fab aria-label={fab.label} className={fab.className} color={fab.color} onClick={(e)=>{_img2.current.click()}}>
             {fab.icon}
-          </Fab> : fab.label === 'Edit' ? <Box display="flex" flexDirection="row"><IconButton className={classes.send} onClick={()=>{sendPhoto("INSIDE")}}><Send/></IconButton><Fab aria-label={fab.label} className={fab.className} color={fab.color} onClick={(e)=>{console.log(_img.current.click(  ))}}>
+          </Fab>  </Box>: fab.label === 'Edit' ? <Box display="flex" flexDirection="row"><IconButton className={classes.send} onClick={()=>{sendPhoto("INSIDE")}}><Send/></IconButton><Fab aria-label={fab.label} className={fab.className} color={fab.color} onClick={(e)=>{console.log(_img.current.click())}}>
             {fab.icon}
           </Fab></Box> : fab.label === 'Expand' ? <Box display="flex" flexDirection="row"><IconButton className={classes.send} onClick={()=>{sendPhoto("OUTSIDE")}}><Send/></IconButton><Fab aria-label={fab.label} className={fab.className} color={fab.color} onClick={(e)=>{console.log(_img.current.click(  ))}}>
             {fab.icon}
@@ -152,7 +188,8 @@ const Photos =({history})=>{
         </Zoom>
       ))}
       <SnackBar handleClose={handleClose} open={open} message={message} type={messageType} />
-      <hidden><input type="file" ref={_img} onChange={(e)=>{setFileImage(e.target.files)}} accept="image/x-png,image/gif,image/jpeg" multiple="multiple" style={{display: 'none'}}/></hidden>
+      <input type="file" ref={_img} onChange={(e)=>{setFileImage(e.target.files)}} accept="image/x-png,image/gif,image/jpeg" multiple="multiple" style={{display: 'none'}}/>
+      <input type="file" ref={_img2} onChange={(e)=>{setFileImage2(e.target.files[0])}} accept="image/x-png,image/gif,image/jpeg" style={{display: 'none'}}/>
         </div>
     );
 }
@@ -181,4 +218,4 @@ TabPanels.prototype ={
     index: PropTypes.any.isRequired
 }
 
-export default Photos;
+export default withRouter(Photos);

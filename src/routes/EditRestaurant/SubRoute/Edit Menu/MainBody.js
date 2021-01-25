@@ -1,10 +1,10 @@
 import React from 'react';
 import useStyles from './Styling';
 import { withRouter } from 'react-router-dom';
-import { Comment, Description, OpenInNew, Photo } from '@material-ui/icons';
-import { Container, Typography, Box, Grid, Paper, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, withStyles, IconButton, Tooltip, CircularProgress } from '@material-ui/core';
+import { CallToAction} from '@material-ui/icons';
+import { Container, Typography, Box, Grid, Paper, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, withStyles, IconButton, Tooltip, CircularProgress, List, ListItem, Button, ListItemText } from '@material-ui/core';
 
-const MainBody = ({ history, data, lastItemElement, load }) => {
+const MainBody = ({ history, data, handleNext, handlePrev, page, totalPage, totalData, load }) => {
     const classes = useStyles();
     const StyledTableRow = withStyles((theme) => ({
         root: {
@@ -23,7 +23,7 @@ const MainBody = ({ history, data, lastItemElement, load }) => {
                         </Box>
 
                         <Box>
-                            <TableContainer style={{ maxHeight: '25rem' }}>
+                            <TableContainer style={{ maxHeight: '25rem', maxWidth: '100%' }}>
                                 <Table stickyHeader>
                                     <TableHead>
                                         <TableRow>
@@ -36,35 +36,36 @@ const MainBody = ({ history, data, lastItemElement, load }) => {
                                     </TableHead>
                                     <TableBody>
                                         {data.map((value, index) => {
-                                            if (data.length === index + 1) {
-                                                return <StyledTableRow ref={lastItemElement} key={value.id} hover={true}>
-                                                    <TableCell>{value.name}</TableCell>
-                                                    <TableCell>{value.address}</TableCell>
-                                                    <TableCell>{value.division}</TableCell>
-                                                    <TableCell>{value.workingTime}</TableCell>
-                                                    <TableCell align="center">
-                                                        <IconButton onClick={() => { const user_id = value.id; history.push({ pathname: '/menus', state: { data: user_id } }) }}><Tooltip title="Edit Menu"><Description classes={{ root: classes.edit }} /></Tooltip></IconButton>
-                                                    </TableCell>
-                                                </StyledTableRow>
-                                            }
-                                            return <StyledTableRow key={value.id} hover={true}>
+                                            return <StyledTableRow key={index} hover={true}>
                                                 <TableCell>{value.name}</TableCell>
                                                 <TableCell>{value.address}</TableCell>
                                                 <TableCell>{value.division}</TableCell>
                                                 <TableCell>{value.workingTime}</TableCell>
                                                 <TableCell align="center">
-                                                    <IconButton onClick={() => { const user_id = value.id; history.push({ pathname: '/menus', state: { data: user_id } }) }}><Tooltip title="Edit Menu"><Description classes={{ root: classes.edit }} /></Tooltip></IconButton>
+                                                    <Box display='flex' flexDirection='row' justifyContent="center">
+                                                        <IconButton onClick={() => { const user_id = value.id; history.push({ pathname: '/menus', state: { data: user_id } }) }}><Tooltip title="Edit Menu"><CallToAction classes={{ root: classes.edit }} style={{color: 'blueviolet'}}/></Tooltip></IconButton>
+                                                    </Box>
                                                 </TableCell>
                                             </StyledTableRow>
                                         })}
                                         <TableRow>
                                             <TableCell />
                                             <TableCell />
-                                            <TableCell align="center">{load && <CircularProgress color='orange' />}</TableCell>
+                                            <TableCell align="center">{load && <CircularProgress color='inherit' />}</TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>
                             </TableContainer>
+                            <Box height={10} />
+                            <Box display="flex" flexDirection="row-reverse">
+                                <Button onClick={handleNext} classes={{ root: classes.pageButton }}>Next</Button>
+                                <Button onClick={handlePrev} classes={{ root: classes.pageButton }}>Prev</Button>
+                                <List>
+                                    <ListItem>
+                                        <ListItemText>Page {page} of {totalPage} totall Data {totalData}</ListItemText>
+                                    </ListItem>
+                                </List>
+                            </Box>
                         </Box>
                     </Paper>
                 </Grid>

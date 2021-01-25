@@ -12,7 +12,7 @@ const FormField = ({category, handleChange, imgPicker, image, setImage, _handleI
                 <Box width="100%" display="flex" flexDirection="column">
                     <Typography className={classes.titles}>Item name</Typography>
                     <Paper className={classes.inputPaper}>
-                        <InputBase className={classes.inputBase} onChange={(e)=>{setName(e.target.value)}}/>
+                        <InputBase className={classes.inputBase} required value={name} onChange={(e)=>{setName(e.target.value)}}/>
                     </Paper>
                 </Box>
                 <Box height={40} />
@@ -21,7 +21,7 @@ const FormField = ({category, handleChange, imgPicker, image, setImage, _handleI
                 <Box width="100%" display="flex" flexDirection="column">
                     <Typography className={classes.titles}>Description</Typography>
                     <Paper className={classes.inputPaper2}>
-                        <InputBase className={classes.inputBase2} multiline  onChange={(e)=>{setDescription(e.target.value)}}/>
+                        <InputBase className={classes.inputBase2} multiline required value={description}  onChange={(e)=>{setDescription(e.target.value)}}/>
                     </Paper>
                 </Box>
                 <Box height={40} />
@@ -32,7 +32,7 @@ const FormField = ({category, handleChange, imgPicker, image, setImage, _handleI
                         <Box width="45%">
                             <Typography className={classes.titles}>Price</Typography>
                             <Paper className={classes.inputPaper}>
-                                <InputBase className={classes.inputBase}  onChange={(e)=>{setPrice(e.target.value)}}/>
+                                <InputBase className={classes.inputBase} required value={price}  onChange={(e)=>{setPrice(e.target.value)}}/>
                             </Paper>
                         </Box>
                         <Box width="45%">
@@ -45,8 +45,8 @@ const FormField = ({category, handleChange, imgPicker, image, setImage, _handleI
                                         onChange={handleChange}
                                     >
                                         <MenuItem value={"NORMAL"}>Normal</MenuItem>
-                                        <MenuItem value={"NORMAL"}>Normal</MenuItem>
-                                        <MenuItem value={"NORMAL"}>Normal</MenuItem>
+                                        <MenuItem value={"SPECIAL"}>SPECIAL</MenuItem>
+                                        <MenuItem value={"DRINK"}>DRINK</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Paper>

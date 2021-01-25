@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const InteriorPhoto = ({ data, history, photo, index }) => {
+const InteriorPhoto = ({ data, history, photo, index, ip }) => {
+    console.log(ip)
     // Define States
     const [page, setPage] = useState(1);
 
@@ -97,7 +98,7 @@ const InteriorPhoto = ({ data, history, photo, index }) => {
                 setMessageType('success')
                 setOpen2(false)
                 setOpen3(true)
-                history.push({ pathname: '/route', state: { photo: photo, data: data, index: index } });
+                history.push({ pathname: '/route', state: { photo: photo, data: data, index: index, ip: ip } });
             }
         } catch (e) {
             setOpen2(false);
@@ -142,8 +143,8 @@ const InteriorPhoto = ({ data, history, photo, index }) => {
                 {
                     user.map((tile, index) => {
                         if (user.length === index + 1) {
-                            return <GridListTile key={tile.businessId} cols={1} ref={lastItemElement}>
-                                <img src={"http://192.168.43.180:80/"+tile.filePath} style={{ width: '100%', height: '100%' }} />
+                            return <GridListTile key={index} cols={1} ref={lastItemElement}>
+                                <img src={`http://${ip}/`+tile.filePath} style={{ width: '100%', height: '100%' }} />
                                 <GridListTileBar
                                     title={tile.caption}
                                     subtitle={tile.label}
@@ -151,8 +152,8 @@ const InteriorPhoto = ({ data, history, photo, index }) => {
                                 />
                             </GridListTile>
                         }
-                        return <GridListTile key={tile.businessId} cols={1}>
-                            <img src={"http://192.168.43.180:80/"+tile.filePath} style={{ width: '100%', height: '100%' }} />
+                        return <GridListTile key={index} cols={1}>
+                            <img src={`http://${ip}/`+tile.filePath} style={{ width: '100%', height: '100%' }} />
                             <GridListTileBar
                                 title={tile.caption}
                                 subtitle={tile.label}

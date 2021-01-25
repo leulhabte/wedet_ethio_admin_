@@ -40,12 +40,23 @@ const useStyles = makeStyles((theme)=>({
         width: '30%'
     },
     inputBase:{
-        width: '100%'
+        width: '100%',
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
     },
     title:{
         fontWeight: 'bold',
         fontSize: '16',
         marginBottom: '0.6rem'
+    },
+    btn2:{
+        backgroundColor: '#FF6F00',
+        color: 'white',
+        '&:hover':{
+            backgroundColor: '#AA4A00'
+        },
+        width: '20%',
+        height: '2rem'
     },
 }));
 

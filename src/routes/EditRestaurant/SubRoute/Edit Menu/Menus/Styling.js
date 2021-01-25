@@ -40,7 +40,9 @@ const useStyles = makeStyles((theme)=>({
         width: '30%'
     },
     inputBase:{
-        width: '100%'
+        width: '100%',
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
     },
     title:{
         fontWeight: 'bold',
@@ -55,6 +57,10 @@ const useStyles = makeStyles((theme)=>({
         },
         width: '20%',
         height: '2rem'
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
     },
 }));
 

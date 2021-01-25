@@ -2,7 +2,7 @@ import React from 'react';
 import useStyles from './Styling';
 import { Paper, Box, InputBase, Container, Typography, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
-const FormField = ({category, handleChange, setName, description, setDescription, price, setPrice}) => {
+const FormField = ({category, handleChange, setName, description, setDescription, price, setPrice, name}) => {
     const classes = useStyles();
     return (
         <Container>
@@ -11,7 +11,7 @@ const FormField = ({category, handleChange, setName, description, setDescription
                 <Box width="100%" display="flex" flexDirection="column">
                     <Typography className={classes.titles}>Item name</Typography>
                     <Paper className={classes.inputPaper}>
-                        <InputBase className={classes.inputBase} onChange={(e)=>{setName(e.target.value)}}/>
+                        <InputBase className={classes.inputBase} value={name} onChange={(e)=>{setName(e.target.value)}}/>
                     </Paper>
                 </Box>
                 <Box height={40} />
@@ -20,7 +20,7 @@ const FormField = ({category, handleChange, setName, description, setDescription
                 <Box width="100%" display="flex" flexDirection="column">
                     <Typography className={classes.titles}>Description</Typography>
                     <Paper className={classes.inputPaper2}>
-                        <InputBase className={classes.inputBase2} multiline  onChange={(e)=>{setDescription(e.target.value)}}/>
+                        <InputBase className={classes.inputBase2} multiline value={description} onChange={(e)=>{setDescription(e.target.value)}}/>
                     </Paper>
                 </Box>
                 <Box height={40} />
@@ -31,21 +31,21 @@ const FormField = ({category, handleChange, setName, description, setDescription
                         <Box width="45%">
                             <Typography className={classes.titles}>Price</Typography>
                             <Paper className={classes.inputPaper}>
-                                <InputBase className={classes.inputBase}  onChange={(e)=>{setPrice(e.target.value)}}/>
+                                <InputBase className={classes.inputBase} value={price} onChange={(e)=>{setPrice(e.target.value)}}/>
                             </Paper>
                         </Box>
                         <Box width="45%">
                             <Typography className={classes.titles}>Type</Typography>
                             <Paper className={classes.inputPaper}>
-                                <FormControl className={classes.margin}>
+                                <FormControl className={classes.margin} style={{width:"100%"}}>
                                     <Select
                                         style={{width: '100%'}}
                                         value={category}
                                         onChange={handleChange}
                                     >
-                                        <MenuItem value={"NORMAL"}>Normal</MenuItem>
-                                        <MenuItem value={"NORMAL"}>Normal</MenuItem>
-                                        <MenuItem value={"NORMAL"}>Normal</MenuItem>
+                                        <MenuItem value={"NORMAL"}>NORMAL</MenuItem>
+                                        <MenuItem value={"SPECIAL"}>SPECIAL</MenuItem>
+                                        <MenuItem value={"DRINK"}>DRINK</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Paper>

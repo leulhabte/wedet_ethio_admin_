@@ -46,25 +46,24 @@ const AddMenu = ({ history }) => {
         try {
             setOpen2(true);
             var form = new FormData();
+            form.append("menuId",  `${history.location.state.data}`);
             form.append("photo", fileImage);
-            form.append("menu", `{
-                \"name\": \"${name}\",
-                \"businessId\": \"${history.location.state.data}\",
-                \"description\": \"${description}\",
-                \"price\": ${price},
-                \"category\": \"${category}\"
-            }`);
-            var config = {
-                method: 'post',
-                url: 'admin/register/menu',
-                headers: {
-                    'Authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWhfbGV1bEBnbWFpbC5jb20iLCJpZCI6IjYwMDFhODI2YzcwYWZhMjYwOTk2MTNiOSIsImV4cCI6MTkyNjM0MjQ1NSwiaWF0IjoxNjEwOTgyNDU1fQ.RQplYH4VHrUlKXqULmRJe-28OjW5PV79uMjzPD5Ly-3MdHRBNOUxc1G3RJ_qH8dKoPSqCuOT8_Y9OXBJMCs-xw`
+
+            var settings = {
+                "url": "admin/update/menuPhoto",
+                "method": "PUT",
+                "timeout": 0,
+                "headers": {
+                  "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWhfbGV1bEBnbWFpbC5jb20iLCJpZCI6IjYwMDFhODI2YzcwYWZhMjYwOTk2MTNiOSIsImV4cCI6MTkyNjA5OTI0NiwiaWF0IjoxNjEwNzM5MjQ2fQ.C_EQYyTxgHdy2s5BfjwP8S3OglD08WbttBzzQYPIh0sPRdn3fUVdN8FnLl9mvoHE69ee9EkF4drV1PV4O6Bg6A"
                 },
-                data: form
-            }
-            const res = await axios(config);
+                "processData": false,
+                "mimeType": "multipart/form-data",
+                "contentType": false,
+                "data": form
+              };
+            const res = await axios(settings);
             if(res.status === 200){
-                setMessage('Data Inserted');
+                setMessage('Photo Updated');
                 setMessageType('success');
                 setOpen(true);
                 setOpen2(false);

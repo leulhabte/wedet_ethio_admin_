@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import FormField from './FormFields';
 import img from '../../../../../res/g1.jpg';
@@ -64,6 +64,9 @@ const AddMenu = ({ history }) => {
             }
             const res = await axios(config);
             if(res.status === 200){
+                setName("");
+                setDescription("");
+                setPrice("");
                 setMessage('Data Inserted');
                 setMessageType('success');
                 setOpen(true);

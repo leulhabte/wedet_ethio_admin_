@@ -1,38 +1,46 @@
-import React, {useEffect, useState, useRef, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import MainBody from './MainBody';
 import axios from 'axios';
-import Loading from '../Loading/Loading';
-import { Box, Container } from '@material-ui/core';
+import { Box, Container, Button } from '@material-ui/core';
+import {withRouter} from 'react-router-dom';
+import useStyles from './Styling';
+import SnackBar from '../../partial/SnackBars';
 
-const ReviewBusiness = () => {
+const ReviewBusiness = ({history}) => {
+    const classes = useStyles();
     // Define States
     const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(0);
+    const [totalData, setTotalData] = useState(0);
 
-    // 
-    const [load, setLoad] = useState(true);
+    const handleNext = () => {
+        if (page < totalPage) {
+            setPage(page + 1);
+        }
+    }
+
+    const handlePrev = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    }
+
+    //
     const [error, setError] = useState(false);
     const [user, setUser] = useState([]);
-    const [hasMore, setHasMore] = useState(false);
     // 
 
-    // 
-    const observer = useRef();
-    const lastItemElement = useCallback(node => {
-        if (load) return
-        if (observer.current) observer.current.disconnect()
-        observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore) {
-                setPage(p=> (p+1))
-            }
-        })
-        if (node) observer.current.observe(node)
-    }, [load, hasMore])
-    // 
+    const [message, setMessage] = useState("");
+    const [messageType, setMessageType] = useState("");
+    const [open, setOpen] = React.useState(false);
 
-    useEffect(() => {
-        fetchBusiness(page);
-    }, [])
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
 
     useEffect(() => {
         fetchBusiness(page);
@@ -40,22 +48,25 @@ const ReviewBusiness = () => {
 
     // Fetch Business 
     const fetchBusiness = async (page) => {
-        setLoad(true);
-        setError(false);
         try {
-            const res = await axios.get(`restaurant?sort=DESC&sort_by=_id&date&p=${page}&per_p=3`,
+            setError(false)
+            const res = await axios.get(`restaurant?sort=DESC&sort_by=_id&date&p=${page}&per_p=4`,
                 {
                     headers: {
                         'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWhpcmV0YWIzMzNAZ21haWwuY29tIiwiaWQiOiI1ZWU4MTUxMGJhNGQ5NTdkNWZhNTRkY2QiLCJleHAiOjE5MjU0Njk0MjAsImlhdCI6MTYxMDEwOTQyMH0.zZ7s3jKH-LiTdetiyoDl-JYY5TJjYSu16gPukBmLumsJ2rLthbXD9Hfsh4WVY5vIBy4gUIVe_o4CF3Azl41D2A'
                     }
                 }
             )
-            setUser((perv)=> [...perv, ...res.data.data]);
-            setHasMore(res.data.data.length > 0)
-            setLoad(false);
+            console.log(res.data.data)          
+            setUser(res.data.data)
+            setPage(res.data.page)
+            setTotalPage(res.data.totalPages)
+            setTotalData(res.data.results)
         }catch(e){
             setError(true);
-            alert(e.message);
+            setMessage(e.message)
+            setMessageType('error')
+            setOpen(true);
         }
     }
 
@@ -66,13 +77,14 @@ const ReviewBusiness = () => {
         axios({
             url: `restaurant/search?text=${query}`,
             method: "GET",
-            cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(res => {
-            setHasMore(false)
             setUser([])
             setUser(res.data.data)
         }).catch(e=>{
             if (axios.isCancel(e)) return;
+            setMessage(e.message)
+            setMessageType('error')
+            setOpen(true);
         })
     }
     // 
@@ -81,13 +93,15 @@ const ReviewBusiness = () => {
     },[query])
 
     return (
-        <Container style={{ background: '#ECF0F3', height: '100vh' }}>
+        <Container>
             <Box height={40} />
             <Header query={query} setQuery = {setQuery} fectData={fectData}/>
             <Box height={40} />
-            <MainBody data={user} lastItemElement={lastItemElement} load={load}/>
+            <MainBody data={user} handleNext={handleNext} handlePrev={handlePrev} page={page} totalPage={totalPage} totalData={totalData}/>
+            <SnackBar handleClose={handleClose} open={open} message={message} type={messageType} />
+            {error && <Box display="flex" justifyContent="center" alignItems="center" width="100%" py={30}><Button  className={classes.btn2} onClick={()=>{history.push({pathname: '/gRoute', state: {path: 'resList', data: null}})}}>Retry</Button></Box>}
         </Container>
     )
 }
 
-export default ReviewBusiness;
+export default withRouter(ReviewBusiness);

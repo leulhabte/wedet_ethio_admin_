@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Outside = ({ data, history, photo, index }) => {
+const Outside = ({ data, history, photo, index, ip }) => {
+    console.log(ip)
     // Define States
     const [page, setPage] = useState(1);
 
@@ -87,7 +88,7 @@ const Outside = ({ data, history, photo, index }) => {
                 method: 'delete',
                 url: `admin/photo?photoIds=${id}`,
                 headers: {
-                    'Authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWhfbGV1bEBnbWFpbC5jb20iLCJpZCI6IjYwMDFhODI2YzcwYWZhMjYwOTk2MTNiOSIsImV4cCI6MTkyNjA5OTI0NiwiaWF0IjoxNjEwNzM5MjQ2fQ.C_EQYyTxgHdy2s5BfjwP8S3OglD08WbttBzzQYPIh0sPRdn3fUVdN8FnLl9mvoHE69ee9EkF4drV1PV4O6Bg6A`
+                    'Authorization': `Bearer ${Cookies.get('jwt')}`
                 }
             };
             const res = await axios(config);
@@ -96,7 +97,7 @@ const Outside = ({ data, history, photo, index }) => {
                 setMessageType('success')
                 setOpen2(false)
                 setOpen3(true)
-                history.push({ pathname: '/route', state: { photo: photo, data: data, index: index } });
+                history.push({ pathname: '/route', state: { photo: photo, data: data, index: 2, ip: ip } });
             }
         } catch (e) {
             setOpen2(false);
@@ -123,7 +124,6 @@ const Outside = ({ data, history, photo, index }) => {
             setLoad(false);
         } catch (e) {
             setError(true);
-            // alert('something went wrong');
         }
     }
 
@@ -141,8 +141,8 @@ const Outside = ({ data, history, photo, index }) => {
                 {
                     user.map((tile, index) => {
                         if (user.length === index + 1) {
-                            return <GridListTile key={tile.businessId} cols={1} ref={lastItemElement}>
-                                <img src={"http://10.2.81.162" + tile.filePath} style={{ width: '100%', height: '100%' }} />
+                            return <GridListTile key={index} cols={1} ref={lastItemElement}>
+                                <img src={`http://${ip}/` + tile.filePath} style={{ width: '100%', height: '100%' }} />
                                 <GridListTileBar
                                     title={tile.caption}
                                     subtitle={tile.label}
@@ -150,8 +150,8 @@ const Outside = ({ data, history, photo, index }) => {
                                 />
                             </GridListTile>
                         }
-                        return <GridListTile key={tile.businessId} cols={1}>
-                            <img src={"http://10.2.81.162" + tile.filePath} style={{ width: '100%', height: '100%' }} />
+                        return <GridListTile key={index} cols={1}>
+                            <img src={`http://${ip}/` + tile.filePath} style={{ width: '100%', height: '100%' }} />
                             <GridListTileBar
                                 title={tile.caption}
                                 subtitle={tile.label}

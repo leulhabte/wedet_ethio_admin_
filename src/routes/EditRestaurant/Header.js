@@ -8,7 +8,7 @@ const Header = ({history}) => {
     return (
         <Container>
             <Grid container spacing={3} className={classes.mainGrid}>
-                <Grid item lg={3} xs={9} md={6}>
+                <Grid item lg={5} xs={9} md={6}>
                     <Button className={classes.reviewButton} onClick={()=>{history.push('/resList')}}>
                         <Box display="flex" flexDirection="column" height="100%" width="100%" justifyContent="space-between" alignItems="center">
                             <Typography className={classes.headTxt}>Edit Restaurant</Typography>
@@ -17,7 +17,7 @@ const Header = ({history}) => {
                     </Button>
                 </Grid>
 
-                <Grid item lg={3} xs={9} md={6}>
+                <Grid item lg={5} xs={9} md={6}>
                     <Button className={classes.dashButtonC1} onClick={()=>{history.push('/resPhoto')}}>
                         <Box display="flex" flexDirection="column" height="100%" width="100%" justifyContent="space-between" alignItems="center">
                             <Typography className={classes.headTxt}>Restaurant Photo</Typography>
@@ -26,7 +26,7 @@ const Header = ({history}) => {
                     </Button>
                 </Grid>
 
-                <Grid item lg={3} xs={9} md={6}>
+                <Grid item lg={5} xs={9} md={6}>
                     <Button className={classes.dashButtonC2} onClick={()=>{history.push('/resEdit')}}>
                         <Box display="flex" flexDirection="column" height="100%" width="100%" justifyContent="space-between" alignItems="center">
                             <Typography className={classes.headTxt}>Edit Menu</Typography>
@@ -35,7 +35,7 @@ const Header = ({history}) => {
                     </Button>
                 </Grid>
 
-                <Grid item lg={3} xs={9} md={6}>
+                <Grid item lg={5} xs={9} md={6}>
                     <Button className={classes.dashButtonC3}  onClick={()=>{history.push('/resMenu')}}>
                         <Box display="flex" flexDirection="column" height="100%" width="100%" justifyContent="space-between" alignItems="center">
                             <Typography className={classes.headTxt}>Add Menu</Typography>
